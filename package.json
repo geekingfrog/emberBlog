@@ -1,0 +1,8 @@
+{
+  "name": "geekingfrogBlog",
+  "version": "0.0.1",
+  "description": "toy project to learn ember",
+  "dependencies": {
+    "express": "3.x"
+  }
+}
