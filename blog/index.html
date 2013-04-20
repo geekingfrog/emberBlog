@@ -22,8 +22,8 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="navmenu">
-      dafuck ?
-      {{ test }}
+      nav menu here <br />
+      test: {{ test }} <br />
       <ul>
         {{#each post in controller}}
         <li>
@@ -31,6 +31,8 @@
         {{{ post.title }}}
         {{/linkTo}}
         </li>
+        {{else}}
+        no record yet
         {{/each}}
       </ul>
     </script>
@@ -45,6 +47,7 @@
       {{{ title }}}
     </script>
 
+    <script src="vendor/lodash.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/handlebars-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/ember-1.0.0-rc.2.js" type="text/javascript" charset="utf-8"></script>
