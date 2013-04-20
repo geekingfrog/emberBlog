@@ -23,7 +23,8 @@
 
     <script type="text/x-handlebars" data-template-name="navmenu">
       nav menu here <br />
-      test: {{ test }} <br />
+      isLoaded: {{ isLoaded }} <br />
+      isError: {{ content.isError }} <br />
       <ul>
         {{#each post in controller}}
         <li>
