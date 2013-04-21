@@ -25,22 +25,64 @@ App.CanModelList = Ember.ArrayProxy.extend({
 
 # Function to be called with reopenClass to add the basic functionalities
 # for the model classes (store, and method to materialize models from hash)
-makeCanModel = ->
+makeCanModel = (options={}) ->
+  type = this
+  console.log "Generating model's features for #{type}"
+  name = type.toString().slice(type.toString().lastIndexOf('.')+1).camelize()
+  plural = options.plural or name+'s'
   store = {}
   model = (hash) ->
     record = store[hash.id]
     unless record
+      # console.log "create #{this} for id: #{hash.id} (#{typeof hash.id}) with hash:",hash
       record = @create({content: hash})
       store[hash.id] = record
     return record
+
+  # returns the content of the store if the provided array is null
   models = (hashArray) ->
+    # console.log "creating models for #{type} with hash: ", hashArray
+    unless hashArray
+      fromStore = Ember.A([])
+      for key, val of @store
+        fromStore.push val
+      return fromStore
     self = this
     newModels = _.map(hashArray, (hash) -> self.model(hash))
     return Ember.A(newModels)
+
+
+  findAll = ->
+    res = App.CanModelList.create({content: type.models()})
+    findAllUrl = options.url?.findAll or
+      "#{App.get('serviceUrl')}?json=get_#{name}_index"
+
+    finding = $.getJSON(findAllUrl)
+    finding.done (data) =>
+      models = type.models(data[plural])
+      models.setEach('isLoaded', true)
+      res.set('content', models)
+    return res
+
+  find = (id) ->
+    return findAll() unless id?
+    record = type.model({id: id})
+    return record if record.get('isLoaded')
+    findUrl = options.url?.find or
+      "#{App.get('serviceUrl')}?json=get_#{name}&#{name}_id=#{id}"
+    finding = $.getJSON(findUrl)
+    finding.done (data) =>
+      record.setProperties({
+        isLoaded: true
+        content: data[name]
+      })
+    return record
+
   return {
     store: store
     model: model
     models: models
+    find: find
   }
 
 
@@ -60,30 +102,23 @@ App.ArrayModelController = Ember.ArrayController.extend({
 
 # Post model
 App.Post = App.CanModel.extend()
-App.Post.reopenClass(makeCanModel())
-App.Post.reopenClass({
-  find: (id) ->
-    return @findAll() unless id?
-    record = @model({id: id})
-    finding = $.getJSON("#{App.get('serviceUrl')}?json=get_post&post_id=#{id}")
-    finding.done (hash) ->
-      record.setProperties({
-        isLoaded: true
-        content: hash.post
-      })
-    return record
+App.Post.reopenClass(makeCanModel.call(App.Post, {
+  url: {findAll: "#{App.get('serviceUrl')}?json=get_recent_posts"}
+  }))
 
-  findAll: ->
-    res = App.CanModelList.create()
-    finding = $.getJSON("#{App.get('serviceUrl')}?json=get_recent_post")
-    finding.done (data) =>
-      console.log "calling models with this: ",this
-      models = Ember.A(@models(data.posts))
-      models.setEach('isLoaded', true)
-      res.set('content', models)
-    return res
-})
+# category model
+App.Category = App.CanModel.extend()
+App.Category.reopenClass(makeCanModel.call(App.Category, {
+  plural: 'categories'
+  }))
 
+# Tags model
+App.Tag = App.CanModel.extend()
+App.Tag.reopenClass(makeCanModel.call(App.Tag))
+
+# Author model
+App.Author = App.CanModel.extend()
+App.Author.reopenClass(makeCanModel.call(App.Author))
 
 
 ################################################################################ 
@@ -116,4 +151,5 @@ App.PostRoute = Ember.Route.extend({
 App.PostsController = Ember.ArrayController.extend()
     
 App.NavmenuController = App.ArrayModelController.extend()
+
 
