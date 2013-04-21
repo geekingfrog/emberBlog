@@ -13,34 +13,34 @@
   <body>
 
     <script type="text/x-handlebars" data-template-name="application">
-      outlet below
-      <br />
-      {{ render navmenu }}
-      <hr />
       {{ outlet }}
-    
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="navmenu">
-      nav menu here <br />
-      isLoaded: {{ isLoaded }} <br />
-      isError: {{ content.isError }} <br />
-      <ul>
-        {{#each post in controller}}
-        <li>
-        {{#linkTo "post" post}}
-        {{{ post.title }}}
-        {{/linkTo}}
-        </li>
-        {{else}}
-        no record yet
-        {{/each}}
-      </ul>
     </script>
 
     <script type="text/x-handlebars" data-template-name="posts">
-      post below <br />
-      {{ outlet }}
+      {{#if isLoaded}}
+      {{#each post in controller}}
+      {{ render "postPreview" post }}
+      {{/each}}
+      {{else}}
+      Loading posts
+      {{/if}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="postPreview">
+      {{#linkTo "post" this}}
+      {{{ title }}}
+      {{/linkTo}}
+      <br />
+      {{{ excerpt }}}
+      <br />
+      Tags: {{ tags.length }}
+      {{#each tags}} {{ title }} {{/each}}
+      <br />  
+      Categories:
+      {{#each category in categories}}
+      {{ category.title }}
+      {{/each}}
+      <hr />
     </script>
 
     <script type="text/x-handlebars" data-template-name="post">
@@ -51,7 +51,7 @@
     <script src="vendor/lodash.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/handlebars-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
-    <script src="vendor/ember-1.0.0-rc.2.js" type="text/javascript" charset="utf-8"></script>
+    <script src="vendor/ember-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/ember-data.js" type="text/javascript" charset="utf-8"></script>
     <script src="app.js" type="text/javascript" charset="utf-8"></script>
   </body>

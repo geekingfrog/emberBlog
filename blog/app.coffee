@@ -16,10 +16,8 @@ App.CanModel = Ember.ObjectProxy.extend({
 # similar to ModelMixin
 # App.ModelListMixin = Ember.Mixin.create({
 App.CanModelList = Ember.ArrayProxy.extend({
-  isLoaded: Ember.computed ->
-    return false unless @get('content')?
-    return @get('content').everyProperty('isLoaded', true)
-  .property('content', 'content.@each.isLoaded')
+  count: undefined
+  isLoaded: false
   isError: false
 })
 
@@ -51,7 +49,9 @@ makeCanModel = (options={}) ->
     id = hash[classId]
     hash.id = hash[classId]
     record = store[id]
-    unless record
+    if record
+      record.set('isLoaded', loaded)
+    else
       # console.log "create #{this} for id: #{hash.id} (#{typeof hash.id}) with hash:",hash
       hash.id = hash[classId]
       record = @create({isLoaded: loaded, content: hash})
@@ -60,7 +60,6 @@ makeCanModel = (options={}) ->
 
   # returns the content of the store if the provided array is null
   models = (hashArray, loaded = false) ->
-    # console.log "creating models for #{type} with hash: ", hashArray
     unless hashArray
       fromStore = Ember.A([])
       for key, val of type.store
@@ -72,15 +71,18 @@ makeCanModel = (options={}) ->
 
 
   findAll = ->
-    res = App.CanModelList.create({content: type.models()})
+    res = App.CanModelList.create()
     findAllUrl = options.url?.findAll or
       "#{App.get('serviceUrl')}?json=get_#{name}_index"
 
     finding = $.getJSON(findAllUrl)
     finding.done (data) =>
-      models = type.models(data[plural])
-      models.setEach('isLoaded', true)
-      res.set('content', models)
+      models = type.models(data[plural], true)
+      res.setProperties({
+        content: models
+        count: data.count
+        isLoaded: true
+      })
     return res
 
   find = (id) ->
@@ -115,6 +117,7 @@ makeCanModel = (options={}) ->
 # (this is only syntaxic sugar, and a little training)
 App.ArrayModelController = Ember.ArrayController.extend({
   isLoaded: Ember.computed ->
+    # console.log "compute isLoaded for an arrayController: ", @get('content').get('isLoaded')
     @get('content').get('isLoaded')
   .property('content.isLoaded')
 
@@ -167,9 +170,8 @@ App.Router.map ->
     )
   )
 
-App.ApplicationRoute = Ember.Route.extend({
-  setupController: ->
-    @controllerFor('navmenu').set('model', App.Post.find())
+App.IndexRoute = Ember.Route.extend({
+  redirect: -> @transitionTo('posts')
 })
 
 App.PostsRoute = Ember.Route.extend({
@@ -185,8 +187,7 @@ App.PostRoute = Ember.Route.extend({
 })
 
 
-App.PostsController = Ember.ArrayController.extend()
-    
-App.NavmenuController = App.ArrayModelController.extend()
+# App.PostsController = Ember.ArrayController.extend()
+App.PostsController = App.ArrayModelController.extend()
 
 
