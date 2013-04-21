@@ -116,7 +116,14 @@ App.ArrayModelController = Ember.ArrayController.extend({
 App.Post = App.CanModel.extend()
 App.Post.reopenClass(makeCanModel.call(App.Post, {
   url: {findAll: "#{App.get('serviceUrl')}?json=get_recent_posts"}
-  }))
+}))
+App.Post.reopenClass({
+  model: (hash) ->
+    hash.categories = App.Category.models(hash.categories)
+    hash.author = App.Author.model(hash.author)
+    hash.tags = App.Tag.models(hash.tags)
+    @_super(hash)
+})
 
 # category model
 App.Category = App.CanModel.extend()
