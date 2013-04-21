@@ -25,6 +25,18 @@ App.CanModelList = Ember.ArrayProxy.extend({
 
 # Function to be called with reopenClass to add the basic functionalities
 # for the model classes (store, and method to materialize models from hash)
+# Also create the find method based on the given options.
+# It expect the url to be like App.serviceUrl?json=get_{name}&{name}_id=:id
+# or get_{name}_index for findAll. The url can be changed in options.url.find and
+# options.url.findAll
+#
+# It expects the response to be like
+# {
+#   status: 'ok',
+#   root: [data...]
+# }
+# where root is the {name} for find and {plural} for findAll. {plural} is {name}s
+# If the plural is irregular, it is options.plural
 makeCanModel = (options={}) ->
   type = this
   console.log "Generating model's features for #{type}"
