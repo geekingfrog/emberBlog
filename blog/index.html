@@ -17,36 +17,66 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="posts">
-      {{#if isLoaded}}
-      {{#each post in controller}}
-      {{ render "postPreview" post }}
-      {{/each}}
-      {{else}}
-      Loading posts
-      {{/if}}
+      {{ outlet }}
     </script>
 
-    <script type="text/x-handlebars" data-template-name="postPreview">
-      {{#linkTo "post" this}}
-      {{{ title }}}
-      {{/linkTo}}
-      <br />
-      {{{ excerpt }}}
-      <br />
-      Tags: {{ tags.length }}
-      {{#each tags}} {{ title }} {{/each}}
-      <br />  
-      Categories:
-      {{#each category in categories}}
-      {{ category.title }}
+    <script type="text/x-handlebars" data-template-name="posts/index">
+      Recent posts: <br />
+      {{render 'listPosts' controller}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="tags">
+      {{ outlet }}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="tags/index">
+      list of tags:
+      {{#each tag in controller}}
+      {{tag.slug}} <br />
       {{/each}}
-      <hr />
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="tag">
+      list of posts: {{#linkTo 'posts'}} here {{/linkTo}}<br />
+      posts for tag here <br />
+      {{render 'listPosts' content}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="tag">
+      list of posts: {{#linkTo 'posts'}} here {{/linkTo}}<br />
+      posts for category here <br />
+      {{render 'listPosts' postsForTag}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="listPosts">
+      <ul>
+      {{#each post in content}}
+      <li>
+      {{#linkTo 'post' post}}
+      {{post.slug}}
+      {{/linkTo}}
+      </li> 
+      {{/each}}
+      </ul>
     </script>
 
     <script type="text/x-handlebars" data-template-name="post">
-      one fine post here  <br />
-      {{{ title }}}
+      {{#linkTo 'posts'}} Back {{/linkTo}} <br />
+      One fine post here <br />
+      {{ slug }} <br />
+      {{{ excerpt }}}
+      <hr />
+      Categories:
+      {{#each category in categories}}
+      {{#linkTo 'category' category}} {{ category.slug }} {{/linkTo}}
+      {{/each}}
+      <br />  
+      Tags:
+      {{#each tag in tags}}
+      {{#linkTo 'tag' tag}}{{ tag.slug }}{{/linkTo}} &nbsp;
+      {{/each}}
     </script>
+
 
     <script src="vendor/lodash.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
