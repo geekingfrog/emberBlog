@@ -8,6 +8,11 @@
 
     <link rel="stylesheet" href="assets/css/normalize.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/frog.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/styles/github.css" type="text/css" />
+    <script src="vendor/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+    </script> 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         socket = io.connect('/');
@@ -45,27 +50,103 @@
       <!-- main content -->
       <div class="large-8 columns">
         <div class="post">
-          <h2><a href="#">Blog post 1</a></h2>
-          <div class="date">
-            posted 10 days ago <br />
-            <i class="icon-tag"></i><a href="#">geek</a> <a href="#">node</a> 
+
+          <div class="header">
+            <h2><a href="#">Blog post 1</a></h2>
+            <div class="meta">
+              <div class="date"> posted 10 days ago </div>
+              <div class="tags">
+                <i class="icon-tag"></i><a href="#">geek</a> <a href="#">node</a> 
+              </div>
+            </div>
+          </div>
+          <!-- end post header -->
+
+          <div class="clearfix"> </div>
+
+          <div class="content">
+
+            <div class="show-for-small">
+<p>
+              Here&#8217;s a very quick guide to set up your own livereload server. By livereload, I mean that the browser automatically refresh when some files change. No more Alt-tab F5 Alt-tab \o\/ The server Get the right dependencies: Package.json: server.js: You can then start the server with `node server.js` and head to http://localhost:1234 You should see [...]
+</p>
+<a href="#" class='more' data-for-post="1">More...</a>
+            </div>
+
+            <div class="hide-for-small" data-post-id="1">
+<p>Here’s a very quick guide to set up your own livereload server. By livereload, I mean that the browser automatically refresh when some files change. No more Alt-tab F5 Alt-tab \o/</p>
+
+
+<p>
+<pre class="brush: bash; title: ; notranslate" title="">
+<code class="bash">
+npm i
+express socket.io node-watch --save
+
+</code> 
+
+</pre>
+<p>server.js:<p>
+<pre>
+<code class="javascript">
+//express server
+app = require('express')()
+
+//http wrapper server
+server = require('http').createServer(app)
+
+//socket.io in charge
+io = require('socket.io').listen(server) 
+
+server.listen(1234)
+
+
+// watch .js and .css files
+watch = require('node-watch')
+
+filter = function(pattern, fun){
+
+  return function(filename){
+
+    if(pattern.test(filename){fun(filename);}
+  }
+
+}
+
+
+
+watch('.', filter(function(\/\\.js|\\.css$\/i, function() {
+  io.sockets.emit('reload') \/send a message to all
+  clients
+});
+
+//set up express to serve static content
+app.use(express.directory(__dirname));
+app.use(express.static(__dirname));
+
+</code>
+</pre>
+
+
+            </div>
+            <!-- end post for desktop -->
+
+            <div class="clearfix"> </div>
+
+            <div class="row meta-misc">
+              <!-- <div class="small&#45;4 columns"> -->
+                <!--   <i class="icon&#45;tag"></i><a href="#">geek</a> <a href="#">node</a>  -->
+                <!-- </div> -->
+              <div class="small-7 columns">
+                <i class="icon-folder-close-alt"></i> Categories: <a href="#">Geek</a>
+              </div>
+              <div class="small-5 columns">
+                No comments.
+              </div>
+            </div>
+            <!-- end meta misc -->
 
           </div>
-          <div class="content">
-            blabla lorem ipsum...
-          </div>
-          <div class="row meta-misc">
-            <!-- <div class="small&#45;4 columns"> -->
-            <!--   <i class="icon&#45;tag"></i><a href="#">geek</a> <a href="#">node</a>  -->
-            <!-- </div> -->
-            <div class="small-7 columns">
-              <i class="icon-folder-close-alt"></i> Categories: <a href="#">Geek</a>
-            </div>
-            <div class="small-5 columns">
-            No comments.
-            </div>
-          </div>
-          <div class="divider"></div>
         </div> 
         <!-- end post one -->
 
@@ -85,8 +166,8 @@
               <i class="icon-folder-close-alt"></i> <a href="#">Geek</a>
             </div>
             <div class="small-4 columns">
-            
-            No comments.
+
+              No comments.
             </div>
           </div>
           <div class="divider"></div>
@@ -105,7 +186,7 @@
             <li><a href="">13</a></li>
             <li class="arrow"><a href="">&raquo;</a></li>
           </ul>
-        
+
         </div>
 
       </div>
@@ -146,88 +227,99 @@
         </ul>
       </div> <!-- end archive -->
 
-    </aside>
-
- 
+      </aside>
 
 
 
 
 
 
-    <script type="text/x-handlebars" data-template-name="application">
-      {{ outlet }}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="posts">
-      {{ outlet }}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="posts/index">
-      Recent posts: <br />
-      {{render 'listPosts' controller}}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="tags">
-      {{ outlet }}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="tags/index">
-      list of tags:
-      {{#each tag in controller}}
-      {{tag.slug}} <br />
-      {{/each}}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="tag">
-      list of posts: {{#linkTo 'posts'}} here {{/linkTo}}<br />
-      posts for tag here <br />
-      {{render 'listPosts' content}}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="tag">
-      list of posts: {{#linkTo 'posts'}} here {{/linkTo}}<br />
-      posts for category here <br />
-      {{render 'listPosts' postsForTag}}
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="listPosts">
-      <ul>
-      {{#each post in content}}
-      <li>
-      {{#linkTo 'post' post}}
-      {{post.slug}}
-      {{/linkTo}}
-      </li> 
-      {{/each}}
-      </ul>
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="post">
-      {{#linkTo 'posts'}} Back {{/linkTo}} <br />
-      One fine post here <br />
-      {{ slug }} <br />
-      {{{ excerpt }}}
-      <hr />
-      Categories:
-      {{#each category in categories}}
-      {{#linkTo 'category' category}} {{ category.slug }} {{/linkTo}}
-      {{/each}}
-      <br />  
-      Tags:
-      {{#each tag in tags}}
-      {{#linkTo 'tag' tag}}{{ tag.slug }}{{/linkTo}} &nbsp;
-      {{/each}}
-    </script>
 
 
-    <script src="vendor/lodash.js" type="text/javascript" charset="utf-8"></script>
-    <script src="vendor/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
-    <script src="vendor/handlebars-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
-    <script src="vendor/ember-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
-    <script src="vendor/ember-data.js" type="text/javascript" charset="utf-8"></script>
-    <!-- <script src="app.js" type="text/javascript" charset="utf&#45;8"></script> -->
-  </body>
+      <script type="text/x-handlebars" data-template-name="application">
+        {{ outlet }}
+      </script>
 
-</html>
+      <script type="text/x-handlebars" data-template-name="posts">
+        {{ outlet }}
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="posts/index">
+        Recent posts: <br />
+        {{render 'listPosts' controller}}
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="tags">
+        {{ outlet }}
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="tags/index">
+        list of tags:
+        {{#each tag in controller}}
+        {{tag.slug}} <br />
+        {{/each}}
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="tag">
+        list of posts: {{#linkTo 'posts'}} here {{/linkTo}}<br />
+        posts for tag here <br />
+        {{render 'listPosts' content}}
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="tag">
+        list of posts: {{#linkTo 'posts'}} here {{/linkTo}}<br />
+        posts for category here <br />
+        {{render 'listPosts' postsForTag}}
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="listPosts">
+        <ul>
+          {{#each post in content}}
+          <li>
+          {{#linkTo 'post' post}}
+          {{post.slug}}
+          {{/linkTo}}
+          </li> 
+          {{/each}}
+        </ul>
+      </script>
+
+      <script type="text/x-handlebars" data-template-name="post">
+        {{#linkTo 'posts'}} Back {{/linkTo}} <br />
+        One fine post here <br />
+        {{ slug }} <br />
+        {{{ excerpt }}}
+        <hr />
+        Categories:
+        {{#each category in categories}}
+        {{#linkTo 'category' category}} {{ category.slug }} {{/linkTo}}
+        {{/each}}
+        <br />  
+        Tags:
+        {{#each tag in tags}}
+        {{#linkTo 'tag' tag}}{{ tag.slug }}{{/linkTo}} &nbsp;
+        {{/each}}
+      </script>
+
+
+      <script src="vendor/lodash.js" type="text/javascript" charset="utf-8"></script>
+      <script src="vendor/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+      <script src="vendor/handlebars-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
+      <script src="vendor/ember-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
+      <script src="vendor/ember-data.js" type="text/javascript" charset="utf-8"></script>
+      <!-- <script src="app.js" type="text/javascript" charset="utf&#45;8"></script> -->
+
+      <script type="text/javascript" charset="utf-8">
+        $(document).ready( function(){
+          $('.more').click(function(ev){
+            var id = $(this).attr('data-for-post');
+            selector = '[data-post-id='+id+']';
+            $(selector).show();
+            debugger;
+            });
+            });
+      </script>
+    </body>
+
+  </html>
 
