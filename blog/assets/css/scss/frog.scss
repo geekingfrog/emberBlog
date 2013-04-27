@@ -1,0 +1,239 @@
+.border {
+  border: 1px solid black;
+}
+
+$imagePath: "../image";
+$fontAwesomePath: "../font";
+
+// Some aliases for colors, see flatuicolors.com
+$color-concrete: #95a5a6;
+$color-cloud: #ecf0f1;
+$color-silver: #bdc3c7;
+
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Include font awesome files
+@import "./font-awesome.scss";
+
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "../../../../foundation/scss/foundation/variables";
+
+
+// test to override some colors
+$primary-color: #27ae60 !default;
+$secondary-color: #2ecc71 !default;
+
+// foundation/scss/foundation Components
+@import
+  "../../../../foundation/scss/foundation/components/global",
+  "../../../../foundation/scss/foundation/components/grid",
+  "../../../../foundation/scss/foundation/components/visibility",
+  "../../../../foundation/scss/foundation/components/block-grid",
+  "../../../../foundation/scss/foundation/components/type",
+  "../../../../foundation/scss/foundation/components/buttons",
+  "../../../../foundation/scss/foundation/components/forms",
+  "../../../../foundation/scss/foundation/components/custom-forms",
+  "../../../../foundation/scss/foundation/components/button-groups",
+//   "../../../../foundation/scss/foundation/components/dropdown-buttons",
+//   "../../../../foundation/scss/foundation/components/split-buttons",
+//   "../../../../foundation/scss/foundation/components/flex-video",
+//   "../../../../foundation/scss/foundation/components/section",
+//   "../../../../foundation/scss/foundation/components/top-bar",
+//   "../../../../foundation/scss/foundation/components/orbit",
+//   "../../../../foundation/scss/foundation/components/reveal",
+//   "../../../../foundation/scss/foundation/components/joyride",
+//   "../../../../foundation/scss/foundation/components/clearing",
+//   "../../../../foundation/scss/foundation/components/alert-boxes",
+//   "../../../../foundation/scss/foundation/components/breadcrumbs",
+//   "../../../../foundation/scss/foundation/components/keystrokes",
+//   "../../../../foundation/scss/foundation/components/labels",
+  "../../../../foundation/scss/foundation/components/inline-lists",
+  "../../../../foundation/scss/foundation/components/pagination";
+//   "../../../../foundation/scss/foundation/components/panels",
+//   "../../../../foundation/scss/foundation/components/pricing-tables",
+//   "../../../../foundation/scss/foundation/components/progress-bars",
+//   "../../../../foundation/scss/foundation/components/side-nav",
+//   "../../../../foundation/scss/foundation/components/sub-nav",
+//   "../../../../foundation/scss/foundation/components/switch",
+//   "../../../../foundation/scss/foundation/components/magellan",
+//   "../../../../foundation/scss/foundation/components/tables",
+//   "../../../../foundation/scss/foundation/components/thumbs",
+//   "../../../../foundation/scss/foundation/components/tooltips",
+//   "../../../../foundation/scss/foundation/components/dropdown";
+// 
+
+
+
+/*        */
+/* HEADER */
+/*        */
+
+// default style, phone
+header {
+  /* border-bottom: 1px dashed $color-concrete; */
+  margin: 0;
+  padding-top: 0;
+  background-color: lighten($secondary-color, 40%);
+
+  .logo {
+    width: 75px;
+    height: 75px;
+    background: url("#{$imagePath}/logo0.jpg");
+    margin: emCalc(10px) auto;
+    @include radius(47px);
+    border: 1px solid $primary-color;
+  }
+
+  .caption {
+    display: block;
+    text-align: center;
+  }
+}
+
+// bigger than phone
+@media #{$small} {
+  header {
+
+    .logo {
+      @include radius(0);
+      /* border: 1px solid $primary-color; */
+      border: none;
+      float: #{$default-float};
+      margin-top: emCalc(10px);
+      margin-left: emCalc(40px);
+    }
+
+    .caption {
+      float: #{$opposite-direction};
+      /* margin: emCalc(20px) emCalc(40px); */
+      margin-right: emCalc(40px);
+      text-align: #{$opposite-direction};
+    }
+  }
+
+
+}
+
+.main-menu {
+  text-align: center;
+  background-color: $color-cloud;
+  box-shadow: 0px 2px 8px 0px $color-concrete;
+  margin-bottom: emCalc(10px);
+  
+  ul {
+    margin: 0;
+  }
+  li {
+    margin: 0;
+    /* padding: emCalc(5px) emCalc(10px); */
+    border-left: 1px solid $color-concrete;
+    /* border-right: 1px solid lighten($color-cloud, 10%); */
+    &:last-child { border-right: 1px solid $color-concrete; }
+    @include single-transition();
+
+    &:hover {
+      box-shadow: inset 0px -5px 10px -5px $color-concrete;
+    }
+
+    &.active {
+      /* background-color: darken($color-cloud, 10%); */
+      background-color: lighten($color-silver, 10%);
+      /* box-shadow: inset 0px 0px 30px -20px black; */
+    }
+    &.active:hover {
+      box-shadow: none;
+    }
+    
+    a {
+      padding: 10px;
+    }
+  } 
+}
+
+/*              */
+/* MAIN CONTENT */
+/*              */
+.post {
+
+  margin-bottom: emCalc(10px);
+
+  h2 {
+    padding-left: emCalc(25px);
+    background-image: url("#{$imagePath}/postIcon.png");
+    background-repeat: no-repeat;
+    background-size: emCalc(20px) emCalc(20px);
+    float: $default-float;
+    /* background-size: cover; */
+  }
+
+  .date {
+    line-height: $base-line-height;
+    color: $subheader-font-color;
+    text-align: $opposite-direction;
+    margin-top: emCalc(5px);
+    float: $opposite-direction;
+  }
+
+  .content {
+    clear: both;
+  }
+
+  .meta-misc {
+    margin-top: emCalc(20px); // 0 emCalc(10px) 0;
+    padding: emCalc(5px);
+    border-top: 1px dashed $secondary-color;
+    border-bottom: 1px dashed $secondary-color;
+    background-color: lighten($secondary-color, 45%);
+  }
+  
+  // .divider {
+  //   width: 90%;
+  //   margin: emCalc(10px) auto;
+  //   /* background-color: black; */
+  //   border-bottom: 1px solid $color-concrete;
+  //   height: 2px;
+  // }
+
+}
+
+/*           */
+/* SIDE MENU */
+/*           */
+
+aside {
+
+  /* border-top: 1px dashed $color-silver; */
+
+  .row.archive, .row.social {
+    border: 1px solid $color-silver;
+    margin: 0 auto emCalc(10px) auto;
+    background-color: lighten($color-silver, 30%);
+  }
+
+  h4 {
+    padding: emCalc(5px);
+    background-color: lighten($color-silver, 20%);
+    /* background-color: $color-silver; */
+    i {
+      padding-right: emCalc(3px);
+    }
+    /* color: $primary-color; */
+    margin: 0;
+    margin-bottom: 5px;
+  }
+  
+  ul li a {
+    padding-left: 10px;
+  }
+}
+
+@media #{$small} {
+  aside {
+    .archive li {
+      padding-bottom: emCalc(2px);
+    }
+  }
+}
+
+

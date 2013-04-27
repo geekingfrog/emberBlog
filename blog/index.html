@@ -3,6 +3,11 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>blog in ember</title>
 
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="assets/css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/frog.css" type="text/css" />
     <script src="/socket.io/socket.io.js"></script>
     <script>
         socket = io.connect('/');
@@ -11,6 +16,144 @@
 
   </head>
   <body>
+
+    <header>
+    <div class="row">
+      <!-- placeholder for the logo -->
+      <div class="logo"> </div>
+      <!-- <img src="logo0.jpg" alt="The geekingfrog" /> -->
+      <div class="caption">
+        <h1>Geekingfrog</h1>
+        <h3><small>Geek stuff by a batrachian</small></h3>
+      </div>
+    </div>
+
+    </header>
+
+    <div class="main-menu">
+      <div class="row">
+        <ul class="inline-list">
+          <li><a href="#">Home</a></li>
+          <li class="active"><a href="#">About Me</a></li>
+          <li><a href="#">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row main-content">
+
+      <!-- main content -->
+      <div class="large-8 columns">
+        <div class="post">
+          <h2><a href="#">Blog post 1</a></h2>
+          <div class="date">
+            posted 10 days ago <br />
+            <i class="icon-tag"></i><a href="#">geek</a> <a href="#">node</a> 
+
+          </div>
+          <div class="content">
+            blabla lorem ipsum...
+          </div>
+          <div class="row meta-misc">
+            <!-- <div class="small&#45;4 columns"> -->
+            <!--   <i class="icon&#45;tag"></i><a href="#">geek</a> <a href="#">node</a>  -->
+            <!-- </div> -->
+            <div class="small-7 columns">
+              <i class="icon-folder-close-alt"></i> Categories: <a href="#">Geek</a>
+            </div>
+            <div class="small-5 columns">
+            No comments.
+            </div>
+          </div>
+          <div class="divider"></div>
+        </div> 
+        <!-- end post one -->
+
+        <div class="post">
+          <h2><a href="#">Blog post 2</a></h2>
+          <div class="date">
+            posted 10 days ago
+          </div>
+          <div class="content">
+            some more stupid things here
+          </div>
+          <div class="row meta-misc">
+            <div class="small-4 columns">
+              <i class="icon-tag"></i> <a href="#">geek</a> <a href="#">node</a> 
+            </div>
+            <div class="small-4 columns">
+              <i class="icon-folder-close-alt"></i> <a href="#">Geek</a>
+            </div>
+            <div class="small-4 columns">
+            
+            No comments.
+            </div>
+          </div>
+          <div class="divider"></div>
+        </div>
+        <!-- end post two -->
+
+        <div class="pagination-centered">
+          <ul class="pagination">
+            <li class="arrow unavailable"><a href="">&laquo;</a></li>
+            <li class="current"><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="">4</a></li>
+            <li class="unavailable"><a href="">&hellip;</a></li>
+            <li><a href="">12</a></li>
+            <li><a href="">13</a></li>
+            <li class="arrow"><a href="">&raquo;</a></li>
+          </ul>
+        
+        </div>
+
+      </div>
+
+      <!-- side menu -->
+      <aside class="large-4 columns">
+      <div class="row collapse">
+        <div class="large-9 columns">
+          <input type="text" name="search" placeholder="search" />
+        </div>
+        <div class="large-3 columns">
+          <input type="submit" class="button prefix" value="Search"/>
+        </div>
+      </div>   
+
+      <!-- social -->
+      <div class="row social">
+        <h4>
+          <i class="icon-group"></i>  Social
+        </h4> 
+        <ul class="small-block-grid-2 large-block-grid-1">
+          <li> <a href="#"><i class="icon-rss"></i>Subscribe</a> </li>
+          <li> <a href="#"><i class="icon-github"></i>Github</a> </li>
+        </ul>
+      </div>
+
+      <!-- archives -->
+      <div class="row archive">
+        <h4>
+          <i class="icon-calendar"></i> Archives
+        </h4>
+        <ul class="small-block-grid-3 large-block-grid-1">
+          <li><a href="#">archive 1</a></li>
+          <li><a href="#">archive 2</a></li>
+          <li><a href="#">archive 3</a></li>
+          <li><a href="#">archive 4</a></li>
+          <li><a href="#">archive 5</a></li>
+        </ul>
+      </div> <!-- end archive -->
+
+    </aside>
+
+ 
+
+
+
+
+
 
     <script type="text/x-handlebars" data-template-name="application">
       {{ outlet }}
@@ -83,7 +226,7 @@
     <script src="vendor/handlebars-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/ember-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
     <script src="vendor/ember-data.js" type="text/javascript" charset="utf-8"></script>
-    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script src="app.js" type="text/javascript" charset="utf&#45;8"></script> -->
   </body>
 
 </html>
