@@ -80,7 +80,10 @@ header {
   .logo {
     width: 75px;
     height: 75px;
-    background: url("#{$imagePath}/logo0.jpg");
+    /* background: url("#{$imagePath}/logo0.jpg"); */
+    background: url("#{$imagePath}/geekingfrogLogo.png");
+    background-size: 73px 73px;
+    background-repeat: no-repeat;
     margin: emCalc(10px) auto;
     @include radius(47px);
     border: 1px solid lighten($secondary-color, 30%);
@@ -99,6 +102,8 @@ header {
     .logo {
       // @include radius(0);
       /* border: 1px solid $primary-color; */
+      @include radius(0px);
+      border: none;
       float: #{$default-float};
       margin-top: emCalc(10px);
       margin-left: emCalc(40px);
@@ -166,9 +171,10 @@ header {
   .header {
     h2 {
       padding-left: emCalc(25px);
-      background-image: url("#{$imagePath}/postIcon.png");
+      background-image: url("#{$imagePath}/geekingfrogPin01.png");
+      /* background-image: url("#{$imagePath}/geekingfrogPin02.png"); */
       background-repeat: no-repeat;
-      background-size: emCalc(20px) emCalc(20px);
+      background-size: emCalc(18px) emCalc(18px);
       /* float: $default-float; */
     }
 
