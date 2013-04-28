@@ -5,7 +5,18 @@
   "dependencies": {
     "express": "3.x",
     "winston": "~0.6.2",
+    "grunt-compile-handlebars": "~0.6.0",
+    "grunt-ember-templates": "~0.4.4",
+    "grunt-browserify": "~0.2.3",
+    "grunt-contrib-coffee": "~0.7.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.3.1",
     "node-watch": "~0.3.3",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "grunt-contrib-sass": "~0.3.0",
+    "grunt-exec": "~0.4.0"
   }
 }

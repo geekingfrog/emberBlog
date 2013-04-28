@@ -13,13 +13,13 @@
       hljs.initHighlightingOnLoad();
     </script> 
 
-    
+    {{#unless production}}
     <script src="/socket.io/socket.io.js"></script>
     <script>
         socket = io.connect('/');
         socket.on('reload', function() { location.reload() });
     </script>
-    
+    {{/unless}}
 
 
   </head>

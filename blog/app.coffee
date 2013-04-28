@@ -1,7 +1,9 @@
+# require all templates compiled with ember_templates
+require './templates'
+
 window.App = Ember.Application.create({
   serviceUrl: "http://geekingfrog.com"
 })
-
 
 
 # basic mixin to provide additional properties

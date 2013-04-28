@@ -12,10 +12,12 @@ io = require('socket.io').listen(httpServer)
 watch = require('node-watch')
 filter = (pattern, fun) ->
   return (filename) ->
+    console.log "#{filename} changed"
     if pattern.test(filename)
+      console.log "trigger refresh"
       fun(filename)
  
-watch('./', filter(/\.js|\.css$|\.html$/i, ->
+watch('./', filter(/blog\.js$|\.css$|\.html$/i, ->
   io.sockets.emit('reload')
 ))
 
