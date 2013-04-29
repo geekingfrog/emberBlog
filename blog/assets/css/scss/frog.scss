@@ -7,19 +7,24 @@ $color-cloud: #ecf0f1;
 $color-silver: #bdc3c7;
 
 
+
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 
 // Include font awesome files
 @import "./font-awesome.scss";
 
+
 // This includes all of the foundation global elements that are needed to work with any of the other files.
 @import "../../../../foundation/scss/foundation/variables";
 
 
 // test to override some colors
-$primary-color: #27ae60 !default;
-$secondary-color: #2ecc71 !default;
+// $primary-color: #27ae60 !default;
+// $secondary-color: #2ecc71 !default;
+
+$primary-color: #16a085 !default;
+$secondary-color: #27ae60 !default;
 
 // foundation/scss/foundation Components
 @import
@@ -74,7 +79,7 @@ header {
   /* border-bottom: 1px dashed $color-concrete; */
   margin: 0;
   padding-top: 0;
-  background-color: lighten($secondary-color, 40%);
+  background-color: lighten($secondary-color, 57%);
 
   .logo {
     width: 75px;
@@ -109,7 +114,9 @@ header {
     }
 
     .caption {
-      float: #{$opposite-direction};
+      /* float: #{$opposite-direction}; */
+      margin-left: emCalc(10px);
+      float: #{$default-float};
       /* margin: emCalc(20px) emCalc(40px); */
       margin-right: emCalc(40px);
       text-align: #{$opposite-direction};
@@ -127,19 +134,22 @@ header {
 
 .main-menu {
   text-align: center;
+  border-top: 1px solid $color-concrete;
   background-color: $color-cloud;
-  box-shadow: 0px 2px 8px 0px $color-concrete;
+  box-shadow: 0px 2px 2px 0px $color-concrete;
   margin-bottom: emCalc(10px);
   
   ul {
     margin: 0;
+    margin-left: emCalc(10px);
   }
   li {
     margin: 0;
     /* padding: emCalc(5px) emCalc(10px); */
-    border-left: 1px solid $color-concrete;
-    /* border-right: 1px solid lighten($color-cloud, 10%); */
-    &:last-child { border-right: 1px solid $color-concrete; }
+    border-right: 1px solid $color-concrete;
+    &:first-child {
+      border-left: 1px solid $color-concrete;
+    }
     @include single-transition();
 
     &:hover {
@@ -281,4 +291,7 @@ aside {
   }
 }
 
+p, h1, h2, h3, h4, h5, h6, a, div {
+  font-family: 'Open Sans', sans-serif;
+}
 
