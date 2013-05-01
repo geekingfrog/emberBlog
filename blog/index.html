@@ -2,13 +2,14 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>blog in ember</title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="assets/css/normalize.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/frog.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/styles/github.css" type="text/css" />
     <script src="vendor/highlight.pack.js"></script>
+
     <script type="text/javascript" charset="utf-8">
       hljs.initHighlightingOnLoad();
     </script> 
@@ -25,223 +26,14 @@
   </head>
   <body>
 
-    <header>
-    <div class="row">
-      <!-- placeholder for the logo -->
-      <div class="logo"> </div>
-      <!-- <img src="logo0.jpg" alt="The geekingfrog" /> -->
-      <div class="caption">
-        <h1>Geekingfrog</h1>
-        <h3><small>Geek stuff by a batrachian</small></h3>
-      </div>
-    </div>
-
-    </header>
-
-    <div class="main-menu">
-      <div class="row">
-        <ul class="inline-list">
-          <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">About Me</a></li>
-          <li><a href="#">Projects</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="row main-content">
-
-      <!-- main content -->
-      <div class="large-8 columns">
-        <div class="post">
-
-          <div class="header">
-            <h2><a href="#">Blog post 1</a></h2>
-            <div class="meta">
-              <div class="date"> posted 10 days ago </div>
-              <div class="tags">
-                <i class="icon-tag"></i><a href="#">geek</a> <a href="#">node</a> 
-              </div>
-            </div>
-          </div>
-          <!-- end post header -->
-
-          <div class="clearfix"> </div>
-
-          <div class="content">
-
-            <div class="show-for-small">
-<p>
-              Here&#8217;s a very quick guide to set up your own livereload server. By livereload, I mean that the browser automatically refresh when some files change. No more Alt-tab F5 Alt-tab \o\/ The server Get the right dependencies: Package.json: server.js: You can then start the server with `node server.js` and head to http://localhost:1234 You should see [...]
-</p>
-<a href="#" class='more' data-for-post="1">More...</a>
-            </div>
-
-            <div class="hide-for-small" data-post-id="1">
-<p>Here’s a very quick guide to set up your own livereload server. By livereload, I mean that the browser automatically refresh when some files change. No more Alt-tab F5 Alt-tab \o/</p>
-
-
-<p>
-<pre class="brush: bash; title: ; notranslate" title="">
-<code class="bash">
-npm i
-express socket.io node-watch --save
-
-</code> 
-
-</pre>
-<p>server.js:<p>
-<pre>
-<code class="javascript">
-//express server
-app = require('express')()
-
-//http wrapper server
-server = require('http').createServer(app)
-
-//socket.io in charge
-io = require('socket.io').listen(server) 
-
-server.listen(1234)
-
-
-// watch .js and .css files
-watch = require('node-watch')
-
-filter = function(pattern, fun){
-
-  return function(filename){
-
-    if(pattern.test(filename){fun(filename);}
-  }
-
-}
-
-
-
-watch('.', filter(function(\/\\.js|\\.css$\/i, function() {
-  io.sockets.emit('reload') \/send a message to all
-  clients
-});
-
-//set up express to serve static content
-app.use(express.directory(__dirname));
-app.use(express.static(__dirname));
-
-</code>
-</pre>
-
-
-</div>
-<!-- end post for desktop -->
-
-<div class="clearfix"> </div>
-
-<div class="row meta-misc">
-  <!-- <div class="small&#45;4 columns"> -->
-    <!--   <i class="icon&#45;tag"></i><a href="#">geek</a> <a href="#">node</a>  -->
-    <!-- </div> -->
-  <div class="small-7 columns">
-    <i class="icon-folder-close-alt"></i> Categories: <a href="#">Geek</a>
-  </div>
-  <div class="small-5 columns">
-    No comments.
-  </div>
-</div>
-<!-- end meta misc -->
-
-          </div>
-        </div> 
-        <!-- end post one -->
-
-        <div class="post">
-          <h2><a href="#">Blog post 2</a></h2>
-          <div class="date">
-            posted 10 days ago
-          </div>
-          <div class="content">
-            some more stupid things here
-          </div>
-          <div class="row meta-misc">
-            <div class="small-4 columns">
-              <i class="icon-tag"></i> <a href="#">geek</a> <a href="#">node</a> 
-            </div>
-            <div class="small-4 columns">
-              <i class="icon-folder-close-alt"></i> <a href="#">Geek</a>
-            </div>
-            <div class="small-4 columns">
-
-              No comments.
-            </div>
-          </div>
-          <div class="divider"></div>
-        </div>
-        <!-- end post two -->
-
-        <div class="pagination-centered">
-          <ul class="pagination">
-            <li class="arrow unavailable"><a href="">&laquo;</a></li>
-            <li class="current"><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li class="unavailable"><a href="">&hellip;</a></li>
-            <li><a href="">12</a></li>
-            <li><a href="">13</a></li>
-            <li class="arrow"><a href="">&raquo;</a></li>
-          </ul>
-        </div> <!-- end pagination -->
-
-      </div>
-
-      <!-- side menu -->
-      <aside class="large-4 columns">
-      <div class="row collapse">
-        <div class="large-9 columns">
-          <input type="text" name="search" placeholder="search" />
-        </div>
-        <div class="large-3 columns">
-          <input type="submit" class="button prefix" value="Search"/>
-        </div>
-      </div>   
-
-      <!-- social -->
-      <div class="row social">
-        <h4>
-          <i class="icon-group"></i>  Social
-        </h4> 
-        <ul class="small-block-grid-2 large-block-grid-1">
-          <li> <a href="#"><i class="icon-rss"></i>Subscribe</a> </li>
-          <li> <a href="#"><i class="icon-github"></i>Github</a> </li>
-        </ul>
-      </div>
-
-      <!-- archives -->
-      <div class="row archive">
-        <h4>
-          <i class="icon-calendar"></i> Archives
-        </h4>
-        <ul class="small-block-grid-3 large-block-grid-1">
-          <li><a href="#">archive 1</a></li>
-          <li><a href="#">archive 2</a></li>
-          <li><a href="#">archive 3</a></li>
-          <li><a href="#">archive 4</a></li>
-          <li><a href="#">archive 5</a></li>
-        </ul>
-      </div> <!-- end archive -->
-
-      </aside>
-
-
-
-
-
       <script src="vendor/lodash.js" type="text/javascript" charset="utf-8"></script>
       <script src="vendor/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
       <script src="vendor/handlebars-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
       <script src="vendor/ember-1.0.0-rc.3.js" type="text/javascript" charset="utf-8"></script>
+      <script src="vendor/moment.js" type="text/javascript" charset="utf-8"></script>
       <!-- <script src="templates.js" type="text/javascript" charset="utf&#45;8"></script> -->
       <!-- <script src="vendor/ember&#45;data.js" type="text/javascript" charset="utf&#45;8"></script> -->
-      <!-- <script src="blog.js" type="text/javascript" charset="utf&#45;8"></script> -->
+      <script src="blog.js" type="text/javascript" charset="utf-8"></script>
 
       <script type="text/javascript" charset="utf-8">
         $(document).ready( function(){

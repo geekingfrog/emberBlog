@@ -178,24 +178,23 @@ header {
   margin-bottom: emCalc(10px);
 
   .header {
-    h2 {
+    h4 {
       padding-left: emCalc(25px);
       background-image: url("#{$imagePath}/geekingfrogPin01.png");
       /* background-image: url("#{$imagePath}/geekingfrogPin02.png"); */
       background-repeat: no-repeat;
-      background-size: emCalc(18px) emCalc(18px);
-      /* float: $default-float; */
+      background-size: emCalc(15px) emCalc(15px);
+      background-position: 0 emCalc(5px);
+      float: $default-float;
     }
 
-    .date, .tags {
+    .meta {
       color: $subheader-font-color;
       text-align: $opposite-direction;
-      margin-top: emCalc(5px);
-      float: $opposite-direction;
-    }
-
-    .tags {
-      float: $default-float;
+      
+      .date {
+        margin-bottom: emCalc(5px);
+      }
     }
 
   }
@@ -206,15 +205,20 @@ header {
     // @include clearfix;
 
     @for $i from 1 through 6 {
-      .row .large-offset-#{$i} { @include grid-column($offset:$i, $collapse:null,$float:false); }
+      // .row .large-offset-#{$i} { @include grid-column($offset:$i, $collapse:null,$float:false); }
       h#{$i} {
-        font-size: $base-font-size*5/($i*0.8)
+        $j: -1 + $i;
+        font-size: $h4-font-size*(1 - $j/10)
       }
     }
     
     .more {
       float: $opposite-direction;
     }
+
+    code {font-weight: inherit;}
+    ul {list-style-position: inside;}
+
 
   }
 
@@ -230,16 +234,15 @@ header {
 
 @media #{$small} {
   .post .header {
-    h2 {
-      float: $default-float;
+    h4 {
+      background-size: emCalc(18px) emCalc(18px);
     }
-    
+
     .meta {
-      padding-top: emCalc(10px);
-      float: $opposite-direction;
+      margin-top: emCalc(10px);
       line-height: $base-line-height;
 
-      .tags { float: none; }
+      .date { margin-bottom: 0}
     }
 
     // .tags {
@@ -277,7 +280,7 @@ aside {
     margin: 0;
     margin-bottom: 5px;
   }
-  
+
   ul li a {
     padding-left: 10px;
   }

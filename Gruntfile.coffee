@@ -43,7 +43,7 @@ module.exports = (grunt) ->
         src: 'blog/app.js'
         dest: 'blog/blog.js'
         options: {
-          debug: true
+          # debug: true
           ignore: 'blog/vendor/**'
         }
     } # end browserify 

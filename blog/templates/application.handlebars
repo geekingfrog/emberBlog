@@ -1,2 +1,69 @@
-Recent posts: <br />
-{{render 'listPosts' controller}}
+<header>
+<div class="row">
+  <!-- placeholder for the logo -->
+  <div class="logo"> </div>
+  <!-- <img src="logo0.jpg" alt="The geekingfrog" /> -->
+  <div class="caption">
+    <h1>Geekingfrog</h1>
+    <h3><small>Geek stuff by a batrachian</small></h3>
+  </div>
+</div>
+
+</header>
+
+
+<div class="main-menu">
+  <div class="row">
+    <ul class="inline-list">
+      <li><a href="#">Home</a></li>
+      <li class="active"><a href="#">About Me</a></li>
+      <li><a href="#">Projects</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="row main-content">
+
+<div class="large-8 columns">
+  {{ outlet }}
+</div>
+
+<!-- side menu -->
+<aside class="large-4 columns">
+<div class="row collapse">
+<div class="large-9 columns">
+  <input type="text" name="search" placeholder="search" />
+</div>
+<div class="large-3 columns">
+  <input type="submit" class="button prefix" value="Search"/>
+</div>
+</div>   
+
+<!-- social -->
+<div class="row social">
+<h4>
+  <i class="icon-group"></i>  Social
+</h4> 
+<ul class="small-block-grid-2 large-block-grid-1">
+  <li> <a href="#"><i class="icon-rss"></i>Subscribe</a> </li>
+  <li> <a href="#"><i class="icon-github"></i>Github</a> </li>
+</ul>
+</div>
+
+<!-- archives -->
+<div class="row archive">
+<h4>
+  <i class="icon-calendar"></i> Archives
+</h4>
+<ul class="small-block-grid-3 large-block-grid-1">
+  <li><a href="#">archive 1</a></li>
+  <li><a href="#">archive 2</a></li>
+  <li><a href="#">archive 3</a></li>
+  <li><a href="#">archive 4</a></li>
+  <li><a href="#">archive 5</a></li>
+</ul>
+</div> <!-- end archive -->
+
+</aside>
+

@@ -1,0 +1,10 @@
+{{#each post in controller}}
+{{render 'post' post}}
+{{else}}
+<div class="text-center">
+  <h3>
+    <i class="icon-spinner icon-spin"></i> Loading posts
+  </h3>
+</div>
+{{/each}}
+
