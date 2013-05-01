@@ -145,6 +145,7 @@ makeBasicMethods = (className, options={}) ->
     findAllUrl = options.url.findAll or
       "#{App.get('serviceUrl')}?json=get_#{className.toLowerCase()}_index"
 
+    collection.set('isLoaded', false)
     finding = $.getJSON(findAllUrl)
     finding.done (data) =>
       models = type.models(data[root], true)
