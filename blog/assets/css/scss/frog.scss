@@ -263,7 +263,7 @@ aside {
 
   /* border-top: 1px dashed $color-silver; */
 
-  .row.archive, .row.social {
+  .row.archives, .row.social, .row.categories {
     border: 1px solid $color-silver;
     margin: 0 auto emCalc(10px) auto;
     background-color: lighten($color-silver, 30%);
@@ -288,7 +288,7 @@ aside {
 
 @media #{$small} {
   aside {
-    .archive li {
+    .archives, .categories li {
       padding-bottom: emCalc(2px);
     }
   }

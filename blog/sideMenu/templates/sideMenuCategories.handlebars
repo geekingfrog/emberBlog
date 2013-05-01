@@ -1,0 +1,16 @@
+<div class="row categories">
+  <h4>
+    <i class="icon-folder-close-alt"></i> Categories
+  </h4>
+  <ul class="small-clock-grid-2 large-block-grid-1">
+  {{#each category in categories}}
+  <li>
+  {{#linkTo 'category' category}} {{ category.title }} {{/linkTo}}
+  </li>
+  {{else}}
+  <div class="text-center">
+  <i class="icon-spinner icon-spin"></i> Loading 
+  </div>
+  {{/each}}
+  </ul>
+</div>

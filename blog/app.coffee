@@ -9,6 +9,7 @@ window.App = Ember.Application.create({
 # require './models/post'
 require './posts/post'
 require './category/category'
+require './sideMenu/sideMenu'
 
 App.Router.map ->
   @resource('posts', ->
@@ -24,6 +25,16 @@ App.Router.map ->
 App.IndexRoute = Ember.Route.extend
   redirect: -> @transitionTo 'posts'
 
+App.ApplicationRoute = Ember.Route.extend(
+  renderTemplate: ->
+    console.log "seting up controllers for the side menu"
+    @render 'application'
+    @render 'sideMenu', {
+      into: 'application'
+      outlet: 'sideMenu'
+      controller: 'sideMenu'
+    }
+)
 # App.Post.find()
 
 
