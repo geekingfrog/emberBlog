@@ -8,6 +8,7 @@ window.App = Ember.Application.create({
 # require './models/canModel'
 # require './models/post'
 require './posts/post'
+require './category/category'
 
 App.Router.map ->
   @resource('posts', ->
@@ -18,9 +19,7 @@ App.Router.map ->
     @resource('tag', {path: ":tag_id"})
   )
   
-  @resource('categories', ->
-    @resource('category', {path: ":category_id"})
-  )
+  @resource('category', {path: "/category/:category_id"})
 
 App.IndexRoute = Ember.Route.extend
   redirect: -> @transitionTo 'posts'

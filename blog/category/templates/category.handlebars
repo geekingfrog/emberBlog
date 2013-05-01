@@ -1,0 +1,30 @@
+{{#if isError}}
+<div class="alert-box alert text-center">
+  <i class="icon-warning-sign"></i>&nbsp;&nbsp;No category <strong>{{id}}</strong> found :/
+</div>
+{{else}}
+{{#if posts.length}}
+<div class="post">
+  <div class="header">
+    <h4>{{ title }}</h4>
+  </div>
+  <div class="content">
+  <ul>
+    {{#each post in posts}}
+    <li>
+    {{#linkTo 'post' post}}
+    {{{  post.title }}} ({{dateFromNow post.date}})
+    {{/linkTo}}
+    </li>
+    {{/each}}
+  </ul>
+  </div>
+</div>
+{{else}}
+<div class="text-center">
+  <h3>
+    <i class="icon-spinner icon-spin"></i> Loading posts for {{id}}
+  </h3>
+</div>
+{{/if}}
+{{/if}}

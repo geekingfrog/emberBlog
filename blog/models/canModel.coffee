@@ -134,6 +134,14 @@ makeBasicMethods = (className, options={}) ->
     newModels = _.map(hashArray, (hash) -> self.model(hash, loaded))
     return Ember.A(newModels)
 
+  # decorator to filter error from the json api
+  filterError = (success, error) ->
+    return (data) ->
+      if data.status is 'error'
+        error.call(this, {responseText: data.error})
+      else
+        success.call(this, data)
+
   # This method returns an instance of CanModelList. This instance is unique for a given
   # model, so multiple call to findAll will return the same object:
   # MyModel.findAll() is MyModel.findAll() //true
@@ -173,7 +181,7 @@ makeBasicMethods = (className, options={}) ->
       findUrl = "#{App.get('serviceUrl')}?json=get_#{className.toLowerCase()}&#{className.toLowerCase()}_#{classId}=#{id}"
 
     finding = $.getJSON(findUrl)
-    finding.done (data) =>
+    finding.done filterError( (data) =>
       # @model(data[className.toLowerCase()], true)
       newHash = @materialize(data[className.toLowerCase()])
       Ember.set(newHash, 'id', data[className.toLowerCase()][classId])
@@ -182,6 +190,8 @@ makeBasicMethods = (className, options={}) ->
         content: newHash
       })
       record.trigger('didLoad')
+    , (xhr) -> markRecordAsFailed(record, xhr)
+    )
     finding.fail (xhr) -> markRecordAsFailed(record, xhr)
 
     return record
