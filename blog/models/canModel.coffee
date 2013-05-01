@@ -169,11 +169,13 @@ makeBasicMethods = (className, options={}) ->
     if findUrl
       findUrl = findUrl.replace(/:[^/&]+/i,id)
     else
-      findUrl = "#{App.get('serviceUrl')}?json=get_#{className}&#{className.toLowerCase()}_#{classId}=#{id}"
+      findUrl = "#{App.get('serviceUrl')}?json=get_#{className.toLowerCase()}&#{className.toLowerCase()}_#{classId}=#{id}"
 
     finding = $.getJSON(findUrl)
     finding.done (data) =>
-      newHash = type.materialize(data)
+      # @model(data[className.toLowerCase()], true)
+      newHash = @materialize(data[className.toLowerCase()])
+      Ember.set(newHash, 'id', data[className.toLowerCase()][classId])
       record.setProperties({
         isLoaded: true
         content: newHash

@@ -4,9 +4,25 @@ App.PostsIndexRoute = Ember.Route.extend(
   model: -> App.Post.find()
 )
 
+App.PostRoute = Ember.Route.extend({
+  model: (params) ->
+    console.log "fetch model with params:", params
+    App.Post.find(params.post_id)
+  setupController: (controller, model) ->
+    controller.set('content', model)
+})
 
 App.PostController = Ember.ObjectController.extend({
-  foo: 'foooo'
+  post: Ember.computed ->
+    @get('content')
+  .property('content')
+})
+
+App.PostPreviewController = Ember.ObjectController.extend({
+  post: Ember.computed ->
+    @get('content')
+  .property('content')
+
   dateFromNow: Ember.computed ->
     m = moment(@get('date'), "YYYY-MM-DD HH:mm:ss")
     return m.fromNow()
@@ -17,7 +33,6 @@ Ember.Handlebars.registerBoundHelper('formatContent', (content) ->
   $content = $ content
   augmented = $content.map (i, el) ->
     return el unless (el.tagName is "PRE" and el.className)
-    console.log "code block to format: ", el
 
     # syntax highlighter mark the language as class='brush: xxx;'
     match = el.className.match(/brush:\s*([^;]*)/i)
@@ -32,14 +47,8 @@ Ember.Handlebars.registerBoundHelper('formatContent', (content) ->
     hljs.highlightBlock(code[0])
     return newEl[0]
 
-  console.log "augmented: ", augmented
-  res = ""
-  # augmented.each (i, el) ->
-  #   html = $(this).html()
-  #   res += if html then html else '<br/>'
   res = $('<div>').append(augmented).html()
 
   return new Handlebars.SafeString(res)
-  # return new Handlebars.SafeString(res.replace(/\n/,'<br />\n'))
 )
 
