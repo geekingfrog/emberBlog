@@ -8,8 +8,6 @@ App.PostRoute = Ember.Route.extend({
   model: (params) ->
     console.log "fetch model with params:", params
     App.Post.find(params.post_id)
-  setupController: (controller, model) ->
-    controller.set('content', model)
 })
 
 App.PostController = Ember.ObjectController.extend({
@@ -22,12 +20,11 @@ App.PostPreviewController = Ember.ObjectController.extend({
   post: Ember.computed ->
     @get('content')
   .property('content')
-
-  dateFromNow: Ember.computed ->
-    m = moment(@get('date'), "YYYY-MM-DD HH:mm:ss")
-    return m.fromNow()
-  .property('content.date')
 })
+
+Ember.Handlebars.registerBoundHelper('dateFromNow', (content) ->
+  moment(content, "YYYY-MM-DD HH:mm:ss").fromNow()
+)
 
 Ember.Handlebars.registerBoundHelper('formatContent', (content) ->
   $content = $ content

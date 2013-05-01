@@ -1,1 +1,20 @@
-{{render 'postPreview' post}}
+{{#if isLoaded}}
+  <div class="post">
+    {{ partial 'postHeader' }}
+
+  <div class="content">
+    
+    {{{ formatContent post.content.content }}}
+
+    <div class="cleafix"> </div>
+    {{ partial 'postMetaMisc' }}
+  </div>
+  </div>
+
+{{else}}
+  <div class="text-center">
+    <h3>
+      <i class="icon-spinner icon-spin"></i> Loading post...
+    </h3>
+  </div>
+{{/if}}

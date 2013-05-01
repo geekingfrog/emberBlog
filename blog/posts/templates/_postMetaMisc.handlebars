@@ -1,0 +1,17 @@
+{{! Expect to be rendered with a App.Post as context }}
+<div class="row meta-misc">
+  <div class="small-7 columns">
+    <i class="icon-folder-close-alt"></i> Categories: 
+    {{#each category in categories}}
+    {{#linkTo 'category' category}}
+      {{category.title}}
+    {{/linkTo}}
+    {{/each}}
+  </div>
+
+  <div class="small-5 columns">
+    Comments ({{comments.length}})
+  </div>
+
+</div>
+

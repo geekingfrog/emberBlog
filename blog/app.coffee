@@ -17,6 +17,10 @@ App.Router.map ->
   @resource('tags', ->
     @resource('tag', {path: ":tag_id"})
   )
+  
+  @resource('categories', ->
+    @resource('category', {path: ":category_id"})
+  )
 
 App.IndexRoute = Ember.Route.extend
   redirect: -> @transitionTo 'posts'

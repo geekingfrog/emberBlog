@@ -1,52 +1,23 @@
 {{#if isLoaded}}
 <div class="post">
-  <div class="header row">
-    <div class="large-8 columns">
-      <h4>{{#linkTo 'post' post}}{{{post.title}}} {{/linkTo}}</h4>
-    </div>
 
-    <div class="meta large-4 columns">
-      <div class="date">Posted {{ dateFromNow }} </div>
-      {{#if tags.length}}
-      <div class="tags">
-        <i class="icon-tag"></i>
-        {{#each tag in tags}}
-        {{#linkTo 'tag' tag}} {{ tag.title }}
-
-        {{/linkTo}}
-
-        {{/each}}
-      </div>
-
-      {{/if}}
-    </div>
-  </div> {{! end header }}
+  {{ partial 'postHeader' }}
 
   <div class="content">
     <div class="show-for-small">
       <p>
       {{{ excerpt }}}
       </p>
-      {{#linkTo 'post' this class='more'}} More...  {{/linkTo}}
+      {{#linkTo 'post' post class='more'}} More...  {{/linkTo}}
     </div>
 
     <div class="hide-for-small">
       {{{ formatContent post.content.content }}}
     </div>
 
-    <div class="row meta-misc">
-      <div class="small-7 columns">
-        <i class="icon-folder-close-alt"></i> Categories: 
-        {{#each category in categories}}
-        {{category.title}}
-        {{/each}}
-      </div>
+    <div class="clearfix"> </div>
 
-      <div class="small-5 columns">
-        Comments
-      </div>
-
-    </div>
+    {{ partial 'postMetaMisc' }}
 
   </div> {{! end content }}
 
