@@ -115,9 +115,8 @@ makeBasicMethods = (className, options={}) ->
   model = (hash, loaded = false) ->
     return unless hash?
     @materialize(hash)
-    if classId isnt 'id' and hash.id?
-      Ember.warn("The given hash to create a model contains a key 'id' but the real id of the
-      object is #{classId}. The original key id is going to be overriden")
+    # if classId isnt 'id' and hash.id?
+      # Ember.warn("The given hash to create a model contains a key 'id' but the real id of the object is #{classId}. The original key id is going to be overriden")
     Ember.set(hash, 'id', hash[classId])
     record = store[hash.id]
     unless record

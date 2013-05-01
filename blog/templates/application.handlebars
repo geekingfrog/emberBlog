@@ -15,8 +15,11 @@
 <div class="main-menu">
   <div class="row">
     <ul class="inline-list">
-      <li><a href="#">Home</a></li>
-      <li class="active"><a href="#">About Me</a></li>
+      {{#linkTo 'posts' tagName='li' href='false'}}
+        {{#linkTo 'posts'}} Home {{/linkTo}}
+      {{/linkTo}}
+      </li>
+      <li><a href="#">About Me</a></li>
       <li><a href="#">Projects</a></li>
     </ul>
   </div>

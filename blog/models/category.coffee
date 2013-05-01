@@ -1,5 +1,5 @@
 makeModel = require('./canModel').makeCanModel
-require './post' #circular dependency here :/
+# require './post' #circular dependency here :/
 
 App.Category = makeModel("Category", {
   plural: 'categories'
@@ -23,6 +23,7 @@ App.Category.reopenClass({
           slug: data.category.slug
           description: data.category.description
           title: data.category.title
+          id: data.category.slug
       )
       record.trigger 'didLoad'
 
