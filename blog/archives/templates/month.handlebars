@@ -1,0 +1,24 @@
+<div class="post">
+  <div class="header row">
+    <div class="12 columns">
+      <h4>Posts for {{ humanDate }}</h4>
+    </div>
+  </div>
+
+  <div class="content">
+    <ul>
+      {{#each post in posts}}
+      <li>
+      {{#linkTo post post}}
+      {{{ post.title }}} ({{ formatMoment post.date format='YYYY MMM Do'}})
+      {{/linkTo}}
+      </li>
+      {{else}}
+      <i class="icon-spin icon-spinner"></i> Going back in time
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,24 @@
+<div class="post">
+  <div class="header row">
+    <div class="12 columns">
+      <h4>For the year {{ controllers.year.content }}</h4>
+    </div>
+  </div>
+
+  <div class="content">
+    <ul class="small-block-grid-2 large-block-grid-3">
+      {{#each month in monthsIndex}}
+      <li>
+      {{#linkTo month controllers.year.content month.m}}
+      {{ formatMoment month.date format="MMM"}} ({{ month.c }}) 
+      {{/linkTo}}
+      </li>
+      {{else}}
+      <i class="icon-spin icon-spinner"></i> Going back in time
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+
+

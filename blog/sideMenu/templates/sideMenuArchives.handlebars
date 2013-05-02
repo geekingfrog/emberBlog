@@ -2,7 +2,17 @@
   <h4>
     <i class="icon-calendar"></i> Archives
   </h4>
-  <ul class="small-block-grid-2 large-block-grid-1">
-  <li>Not implemented...</li>
+  <ul class="small-block-grid-2 large-block-grid-2">
+    {{#each date in dateArray}}
+    <li>
+    {{#linkTo month date.y date.m}}
+    {{ date.human }} ({{ date.c }}) 
+    {{/linkTo}}
+    </li>
+    {{else}}
+    <div class="text-center">
+    <i class="icon-spinner icon-spin"></i> Loading
+    </div>
+    {{/each}}
   </ul>
 </div>

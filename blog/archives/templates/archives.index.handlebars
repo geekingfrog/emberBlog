@@ -1,0 +1,33 @@
+<div class="post">
+  <div class="header row">
+    <div class="12 columns">
+      <h4>Since the beginning of times...</h4>
+    </div>
+  </div>
+
+  <div class="content">
+    <ul class="small-block-grid-2 large-block-grid-3">
+      {{#each year in dateNestedArray}}
+      <li>
+      {{#linkTo year year.y}}
+      {{ year.y }}
+      {{/linkTo}}
+      <ul>
+      {{#each month in year.content}}
+      <li>
+      {{#linkTo month year.y month.m}}
+        {{ formatMoment month.date format="MMM" }} ({{ month.c }})
+      {{/linkTo}}
+      </li>
+      {{/each}}
+      </ul>
+      </li>
+      {{else}}
+      <i class="icon-spin icon-spinner"></i> Going back in time
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+
+

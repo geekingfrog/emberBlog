@@ -9,6 +9,7 @@ window.App = Ember.Application.create({
 # require './models/post'
 require './posts/post'
 require './category/category'
+require './archives/archives'
 require './sideMenu/sideMenu'
 
 App.Router.map ->
@@ -21,6 +22,14 @@ App.Router.map ->
   )
   
   @resource('category', {path: "/category/:category_id"})
+
+  @resource('archives', ->
+    @resource('year', {path: ':y'}, ->
+      @resource('month', {path: ':m'})
+    )
+  )
+
+  @route("fourOhFour", {path: "*:"})
 
 App.IndexRoute = Ember.Route.extend
   redirect: -> @transitionTo 'posts'
