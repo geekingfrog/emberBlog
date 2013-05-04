@@ -1,3 +1,4 @@
+
 {{#each post in controller}}
 {{render 'postPreview' post}}
 {{else}}
@@ -7,4 +8,26 @@
   </h3>
 </div>
 {{/each}}
+
+{{#if content.length}}
+<div class="pagination-centered">
+  <ul class="pagination">
+    {{#if hasPrevious}}
+    <li class="arrow"><a href="" {{action previous}}>&laquo;</a></li>
+    {{/if}}
+
+    {{#each page in pageList}}
+    <li {{bindAttr class="page.isCurrent:current"}}>
+    <a href="javascript://" {{action gotoPage page.pageNum}}>
+      {{ page.pageNum }}
+    </a>
+    </li>
+    {{/each}}
+
+    {{#if hasNext}}
+    <li class="arrow"><a href="" {{action next}}>&raquo;</a></li>
+    {{/if}}
+  </ul>
+</div>
+{{/if}}
 

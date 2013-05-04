@@ -44,4 +44,27 @@ App.Post.reopenClass({
         content: content
       )
     return res
+
+  getRecentPosts: (opts = {}) ->
+    opts = _.extend({count: 10, page: 1}, opts)
+    res = App.CanModelList.create({ pages: 0 })
+    url = App.get('serviceUrl')+"?json=get_recent_posts"
+    finding = $.getJSON(url, opts)
+    self = this
+
+    finding.done (data) ->
+      res.setProperties
+        isLoaded: true
+        pages: data.pages
+        total: data.count_total
+        content: _.map(data.posts, (p) -> self.model(p, true))
+
+    finding.fail (xhr) ->
+      res.setProperties
+        isError: true
+        errorMessage: xhr.responseText
+        xhr: xhr
+
+    return res
+
 })

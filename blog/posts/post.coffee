@@ -1,7 +1,42 @@
 require '../models/post'
 
+
+# http://stackoverflow.com/questions/8853396/logical-operator-in-a-handlebars-js-if-conditional
+# this goes against the philosophy of logicless template like handlebars but I don't
+# see how to put the class 'current' to the current page
+
 App.PostsIndexRoute = Ember.Route.extend(
-  model: -> App.Post.find()
+  model: -> App.Post.getRecentPosts()
+)
+
+App.PostsIndexController = Ember.ArrayController.extend(
+  currentPage: 1
+
+  hasPrevious: Ember.computed('currentPage', ->
+    @get('currentPage') isnt 1
+  ).cacheable()
+
+  hasNext: Ember.computed('currentPage', 'content.pages', ->
+    @get('currentPage') isnt @get('content.pages')
+  ).cacheable()
+
+  pageList: Ember.computed('content.pages', 'currentPage', ->
+    return (for i in [0...@get('content.pages')]
+      {pageNum: i+1, isCurrent: i+1 is @get('currentPage')}
+    )
+  ).cacheable()
+
+  next: -> @incrementProperty('currentPage', 1)
+
+  previous: -> @decrementProperty('currentPage', 1)
+
+  gotoPage: (pageNum) -> @set('currentPage', pageNum)
+
+  currentPageChanged:( ->
+    @set('content', App.Post.getRecentPosts({page: @get('currentPage')}))
+    offsetTop = document.getElementsByClassName('main-content')[0].offsetTop
+    $('body').animate({scrollTop: offsetTop})
+  ).observes('currentPage')
 )
 
 App.PostRoute = Ember.Route.extend({
