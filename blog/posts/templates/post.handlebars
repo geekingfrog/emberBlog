@@ -1,20 +1,54 @@
 {{#if isLoaded}}
-  <div class="post">
-    {{ partial 'postHeader' }}
+<div class="post">
+  {{ partial 'postHeader' }}
 
   <div class="content">
-    
+
     {{{ formatContent post.content.content }}}
 
     <div class="cleafix"> </div>
     {{ partial 'postMetaMisc' }}
   </div>
+  <div class="comments">
+    {{#if newComment}}
+      <div class="comment row">
+        <form>
+          <fieldset>
+            <legend>Add a comment</legend>
+            {{#if newComment.isSaving}}
+            <h4><i class="icon-spinner icon-spin"></i>Saving...</h4>
+            {{else}}
+              <label>Name</label>
+              {{input type=text value=newComment.name}}
+              {{textarea value=newComment.content.content}}
+              {{view App.PostCommentView valueBinding=newComment}}
+            {{/if}}
+          </fieldset>
+        </form>
+      </div>
+    {{/if}}
+
+    {{#each comment in post.comments}}
+    <div class="row">
+      <div class="large-3 columns">
+        <p>By - {{ comment.name }}</p>
+        <p>{{ comment.date }}</p>
+      </div>
+      <div class="large-9 columns comment-content">
+        {{ comment.content.content }}
+      </div>
+
+    </div>
+    {{/each}}
+
+
   </div>
+</div>
 
 {{else}}
-  <div class="text-center">
-    <h3>
-      <i class="icon-spinner icon-spin"></i> Loading post...
-    </h3>
-  </div>
+<div class="text-center">
+  <h3>
+    <i class="icon-spinner icon-spin"></i> Loading post...
+  </h3>
+</div>
 {{/if}}

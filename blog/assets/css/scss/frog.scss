@@ -230,6 +230,16 @@ header {
     background-color: lighten($secondary-color, 45%);
   }
   
+  .comments {
+    margin-top: emCalc(20px);
+
+    .comment {
+      border: 1px solid $color-cloud;
+      p {
+        margin: 0;
+      }
+    }
+  }
 }
 
 @media #{$small} {

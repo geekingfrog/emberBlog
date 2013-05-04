@@ -1,4 +1,5 @@
 require '../models/post'
+require '../models/comment'
 
 
 # http://stackoverflow.com/questions/8853396/logical-operator-in-a-handlebars-js-if-conditional
@@ -40,16 +41,40 @@ App.PostsIndexController = Ember.ArrayController.extend(
 )
 
 App.PostRoute = Ember.Route.extend({
-  model: (params) ->
-    console.log "fetch model with params:", params
-    App.Post.find(params.post_id)
+  
+  activate: ->
+    @_super()
+    offsetTop = document.getElementsByClassName('main-menu')[0]?.offsetTop or 0
+    $('body').scrollTop(offsetTop)
+
 })
 
 App.PostController = Ember.ObjectController.extend({
   post: Ember.computed ->
     @get('content')
   .property('content')
+
+  newComment: App.Comment.model({})
+
+  postNewComment: ->
+    console.log "posted a comment with args: ", arguments
+    if @get('newComment.name') and @get('newComment.content.content')
+      submitting = @get('post').submitComment(@get('newComment'))
+      submitting.done =>
+        comment = @get('newComment')
+        @set('newComment', App.Comment.model({}))
+        @get('comments').addObject comment
+        return
+    else
+      console.log "not submitting"
 })
+
+App.PostCommentView = Ember.View.extend(
+  templateName: "postComment"
+  click: (ev) ->
+    ev.preventDefault()
+    sending = @get('controller').send('postNewComment')
+)
 
 App.PostPreviewController = Ember.ObjectController.extend({
   post: Ember.computed ->

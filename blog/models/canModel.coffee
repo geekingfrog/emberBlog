@@ -115,14 +115,15 @@ makeBasicMethods = (className, options={}) ->
   model = (hash, loaded = false) ->
     return unless hash?
     @materialize(hash)
-    # if classId isnt 'id' and hash.id?
+    if classId isnt 'id' and hash.id?
+      hash['foobared'] = hash.id
       # Ember.warn("The given hash to create a model contains a key 'id' but the real id of the object is #{classId}. The original key id is going to be overriden")
     Ember.set(hash, 'id', hash[classId])
     record = store[hash.id]
     unless record
       record = @create({isLoaded: loaded, content: hash})
       collection.addObject record
-      store[hash.id] = record
+      store[hash.id] = record if hash.id # do not store a record created client-side (yet)
     record.set('isLoaded', loaded)
     return record
 
@@ -183,6 +184,8 @@ makeBasicMethods = (className, options={}) ->
     finding.done filterError( (data) =>
       # @model(data[className.toLowerCase()], true)
       newHash = @materialize(data[className.toLowerCase()])
+      if classId isnt 'id'
+        newHash['_id'] = newHash.id
       Ember.set(newHash, 'id', data[className.toLowerCase()][classId])
       record.setProperties({
         isLoaded: true
@@ -262,9 +265,10 @@ specify its id if it\'s a non standard one', !record.get('isNew'))
 
 # function to create a model:
 # App.MyModel = canModel.makeCanModel("MyModel")
-canModel.makeCanModel = (className, options) ->
+canModel.makeCanModel = (className, options={}) ->
   Ember.assert('You must provide a classname', className?)
-  res = App.CanModel.extend()
+  options.extend = {} unless options.extend
+  res = App.CanModel.extend(options.extend)
   res.reopenClass(makeBasicMethods.call(res, className, options))
   return res
 

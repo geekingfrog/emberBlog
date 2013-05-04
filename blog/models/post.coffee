@@ -2,17 +2,38 @@ makeModel = require('./canModel').makeCanModel
 require './category'
 require './tag'
 require './author'
+require './comment'
 
 App.Post = makeModel("Post", {
   url:
     findAll: "#{App.get('serviceUrl')}?json=get_recent_posts"
   id: 'slug'
+  extend:
+    submitComment: (comment) ->
+      data = {
+        post_id: @get('_id') or @get('id')
+        name: comment.get('name')
+        email: 'toto@totoworld.com'
+        content: comment.get('content.content')
+      }
+      url = App.get('serviceUrl')+'?json=submit_comment'
+      comment.set('isSaving', true)
+
+      submitting = $.post(url, data)
+      submitting.always -> comment.set('isSaving', false)
+      submitting.then (data) ->
+        console.log "comment ok, setting the id: ", data.id
+        comment.set('date', data.date)
+        Ember.set(comment, 'id', data.id)
+        return App.Comment.model(comment.get('content'), true)
+      return submitting.promise()
 })
 App.Post.reopenClass({
   materialize: (hash) ->
     hash.categories = App.Category.models(hash.categories, true)
     hash.author = App.Author.model(hash.author, true)
     hash.tags = App.Tag.models(hash.tags, true)
+    hash.comments = App.Comment.models(hash.comments, true)
     return hash
 
   getDateIndex: ->

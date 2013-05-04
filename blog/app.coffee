@@ -41,7 +41,6 @@ App.ApplicationController = Ember.Controller.extend(
 
 App.ApplicationRoute = Ember.Route.extend(
   renderTemplate: ->
-    console.log "seting up controllers for the side menu"
     @render 'application'
     @render 'sideMenu', {
       into: 'application'
