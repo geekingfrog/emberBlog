@@ -11,16 +11,22 @@
 
 </header>
 
-
 <div class="main-menu">
   <div class="row">
     <ul class="inline-list">
       {{#linkTo 'posts.index' tagName='li' href='false'}}
-        {{#linkTo 'posts.index'}} Home {{/linkTo}}
+      {{#linkTo 'posts.index'}} Home {{/linkTo}}
       {{/linkTo}}
       </li>
-      <li><a href="#">About Me</a></li>
-      <li><a href="#">Projects</a></li>
+      {{#if pages.isLoaded}}
+      {{#each page in pages}}
+      {{#linkTo page page tagName="li" href=false}}
+      {{#linkTo page page}}
+        {{ page.title }}
+      {{/linkTo}}
+      {{/linkTo}}
+      {{/each}}
+      {{/if}}
     </ul>
   </div>
 </div>
@@ -28,10 +34,10 @@
 
 <div class="row main-content">
 
-<div class="large-8 columns">
-  {{ outlet }}
+  <div class="large-8 columns">
+    {{ outlet }}
+  </div>
+
+  <!-- side menu -->
+  {{ outlet sideMenu }}
 </div>
-
-<!-- side menu -->
-{{ outlet sideMenu }}
-

@@ -1,0 +1,22 @@
+{{#if isLoaded}}
+<div class="post">
+  <div class="header row">
+    <div class="large-12 columns">
+      <h4>{{#linkTo page content}}
+        {{ title }}
+        {{/linkTo}}</h4>
+    </div>
+  </div>
+
+  <div class="content">
+    {{{ formatContent content.content.content }}}
+  </div>
+</div>
+
+{{else}}
+<div class="text-center">
+  <h3>
+    <i class="icon-spinner icon-spin"></i> Loading page
+  </h3>
+</div>
+{{/if}}

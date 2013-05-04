@@ -10,9 +10,7 @@
     <div class="tags">
       <i class="icon-tag"></i>
       {{#each tag in tags}}
-      {{#linkTo 'tag' tag}} {{ tag.title }}
-
-      {{/linkTo}}
+      {{#linkTo 'tag' tag}} {{ tag.title }} {{/linkTo}}
 
       {{/each}}
     </div>
