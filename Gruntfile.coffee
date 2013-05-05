@@ -20,8 +20,35 @@ module.exports = (grunt) ->
     'compile-handlebars':
       dev:
         template: 'blog/index.html.handlebars'
-        templateData: {production: false}
+        templateData:
+          production: false
+          scripts: [
+            'vendor/lodash.js'
+            'vendor/jquery-1.9.1.js'
+            'vendor/handlebars-1.0.0-rc.3.js'
+            'vendor/ember-1.0.0-rc.3.js'
+            'vendor/moment.js'
+            'vendor/highlight.pack.js'
+            'blog.js'
+          ]
+
+        output: 'blog/devIndex.html'
+
+      dist:
+        template: 'blog/index.html.handlebars'
         output: 'blog/index.html'
+        templateData:
+          production: true
+          scripts: [
+            '//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.2.1/lodash.min.js'
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+            '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min.js'
+            '//cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.0-rc.3/ember.min.js'
+            '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js'
+            '//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js'
+            'blog.min.js'
+          ]
+
 
     ember_templates: {
       compile:
@@ -39,14 +66,19 @@ module.exports = (grunt) ->
     } # end ember_templates
 
     browserify: {
-      dev:
+      generic:
         src: 'blog/app.js'
         dest: 'blog/blog.js'
         options: {
-          # debug: true
           ignore: 'blog/vendor/**'
         }
     } # end browserify 
+
+    uglify: {
+      dist:
+        files:
+          'blog/blog.min.js': ['blog/blog.js']
+    }
 
     exec: {
       server:
@@ -82,13 +114,23 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-ember-templates'
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-exec'
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
 
   grunt.registerTask 'default', [
     'sass'
     'coffee'
     'ember_templates'
     'browserify'
-    'compile-handlebars'
+    'compile-handlebars:dev'
+  ]
+
+  grunt.registerTask 'dist', [
+    'sass'
+    'coffee'
+    'ember_templates'
+    'browserify'
+    'uglify:dist'
+    'compile-handlebars:dist'
   ]
 
   grunt.registerTask 'server', ['coffee', 'exec:server']
