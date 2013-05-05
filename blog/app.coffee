@@ -2,7 +2,7 @@
 require './templates'
 
 window.App = Ember.Application.create({
-  serviceUrl: "http://geekingfrog.com"
+  serviceUrl: "http://geekingfrog.com/blog.php/"
 })
 
 require './posts/post'
