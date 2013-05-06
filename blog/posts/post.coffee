@@ -43,9 +43,14 @@ App.PostsIndexController = Ember.ArrayController.extend(
 App.PostRoute = Ember.Route.extend({
   
   activate: ->
+    console.log "activating route"
     @_super()
     offsetTop = document.getElementsByClassName('main-menu')[0]?.offsetTop or 0
-    $('body').scrollTop(offsetTop)
+    # doesn't work in firefox for some weird reason.
+    # $('body').scrollTop(offsetTop)
+
+    # this work however
+    document.documentElement.scrollTop = offsetTop
 
 })
 
