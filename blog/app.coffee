@@ -30,6 +30,8 @@ App.Router.map ->
 
   @resource('page', {path: 'pages/:page_id'})
 
+  @route('search', {path: "/search/:query"})
+
   @route("fourOhFour", {path: "*:"})
 
 App.IndexRoute = Ember.Route.extend

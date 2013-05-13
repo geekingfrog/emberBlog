@@ -88,4 +88,25 @@ App.Post.reopenClass({
 
     return res
 
+  searchForPosts: (query) ->
+    url = App.get('serviceUrl')+"?json=get_search_results"
+    res = App.CanModelList.create({query: query})
+    searching = $.getJSON(url, {count: 100000, search: encodeURI(query)})
+    self = this
+
+    searching.done (data) ->
+      res.setProperties
+        isLoaded: true
+        content: _.map(data.posts, (p) -> self.model(p, true))
+
+    searching.fail (xhr) ->
+      res.setProperties
+        isError: true
+        errorMessage: xhr.responseText
+        xhr: xhr
+
+    return res
+
+
+
 })

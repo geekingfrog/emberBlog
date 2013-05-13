@@ -17,4 +17,32 @@ App.SideMenuController = Ember.Controller.extend(
         }
     return dateArray.sort( (a,b) -> b.date.getTime() - a.date.getTime())
   .property('dateTree.isLoaded', 'dateTree.tree')
+
+  search: (query) ->
+    console.log "search with args: ", arguments
+    @transitionToRoute('search',App.Post.searchForPosts(query))
+
 )
+
+App.SearchBarView = Ember.View.extend(
+  templateName: 'searchBar'
+  query: ""
+  submit: (ev) ->
+    ev.preventDefault()
+    query = @get('query')
+    if query
+      @get('controller').send('search', query)
+)
+
+App.SearchRoute = Ember.Route.extend(
+  model: (params) ->
+    console.log "get search results for query:", params
+    window.s = App.Post.searchForPosts(params.query)
+    return s
+
+  serialize: (model) ->
+    return {query: model.get('query')}
+
+)
+
+App.SearchController = Ember.ArrayController.extend()

@@ -36,6 +36,8 @@ App.CanModel = Ember.ObjectProxy.extend(Ember.Evented, {
   isNew:(->!@get('content.id')).property('content.id')
   isSaving: false
   isError: false
+  errorMessage: null
+  xhr: null
   isDeleted: true
   save: ->
     if @get('isNew')
