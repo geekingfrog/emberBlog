@@ -45,7 +45,7 @@ module.exports = (grunt) ->
             '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min.js'
             '//cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.0-rc.3/ember.min.js'
             '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js'
-            '//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js'
+            'assets/vendor/highlight.pack.js'
             'blog.min.js'
           ]
 
